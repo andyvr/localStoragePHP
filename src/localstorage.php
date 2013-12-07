@@ -9,14 +9,14 @@
 */
 
 class localStorage {
-    var $storename;
+	var $storename;
 	var $filedata;
 	
 	//Constructor
 	function localStorage($storename = "localStorage.txt") {
-        $this->storename = $storename;
+		$this->storename = $storename;
 		$this->getFileData();
-    }
+	}
 	//get an item
 	function getItem($key) {
 		if(isset($this->filedata[$key])) return $this->filedata[$key];
