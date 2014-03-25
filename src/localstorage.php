@@ -11,10 +11,12 @@
 class localStorage {
 	private $storename;
 	private $filedata;
+	private $prettyprint;
 	
 	//Constructor
-	public function localStorage($storename = "localStorage.txt") {
-		$this->storename = $storename;
+	public function localStorage($storename = FALSE, $prettyprint = FALSE) {
+		$this->storename = is_string($storename) ? $storename : "localStorage.txt";
+		$this->prettyprint = $prettyprint ? JSON_PRETTY_PRINT : FALSE;
 		$this->loadFileData();
 	}
 	//get an item
@@ -68,12 +70,12 @@ class localStorage {
 		$this->filedata = array();
 		$filedata = @file_get_contents($this->storename);
 		if(!$filedata) return FALSE;
-		else $filedata = json_decode($filedata);
+		else $filedata = (array)json_decode($filedata);
 		if(!empty($filedata)) $this->filedata = $filedata;
 		return TRUE;
 	}
 	private function saveFileData() {
-		return @file_put_contents($this->storename, json_encode($this->filedata));
+		return @file_put_contents($this->storename, json_encode($this->filedata, $this->prettyprint));
 	}
 }
 ?>
