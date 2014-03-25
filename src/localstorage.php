@@ -9,62 +9,62 @@
 */
 
 class localStorage {
-	var $storename;
-	var $filedata;
+	private $storename;
+	private $filedata;
 	
 	//Constructor
-	function localStorage($storename = "localStorage.txt") {
+	public function localStorage($storename = "localStorage.txt") {
 		$this->storename = $storename;
-		$this->getFileData();
+		$this->loadFileData();
 	}
 	//get an item
-	function getItem($key) {
+	public function getItem($key) {
 		if(isset($this->filedata[$key])) return $this->filedata[$key];
 		else return NULL;
 	}
 	//set an item
-	function setItem($key, $value) {
+	public function setItem($key, $value) {
 		$this->filedata[$key] = $value;
-		return $this->setFileData();
+		return $this->saveFileData();
 	}
 	//remove an item
-	function removeItem($key) {
+	public function removeItem($key) {
 		if(isset($this->filedata[$key])) {
 			unset($this->filedata[$key]);
-			return $this->setFileData();
+			return $this->saveFileData();
 		}
 		return TRUE;
 	}
 	//clear the local storage
-	function clear() {
+	public function clear() {
 		$this->filedata = array();
-		return $this->setFileData();
+		return $this->saveFileData();
 	}
 	//Additional methods (<pop/push> - for the end of array <shift/unshift> - begining of array)
-	function pop() {
+	public function pop() {
 		$data = array_pop($this->filedata);
-		$this->setFileData();
+		$this->saveFileData();
 		return $data;
 	}
-	function push($itm) {
+	public function push($itm) {
 		$data = array_push($this->filedata, $itm);
-		return $this->setFileData();
+		return $this->saveFileData();
 	}
-	function shift() {
+	public function shift() {
 		$data = array_shift($this->filedata);
-		$this->setFileData();
+		$this->saveFileData();
 		return $data;
 	}
-	function unshift($itm) {
+	public function unshift($itm) {
 		$data = array_unshift($this->filedata, $itm);
-		return $this->setFileData();
+		return $this->saveFileData();
 	}
 	
 	//Private methods
-	function getData() {
+	public function getFileData() {
 		return $this->filedata;
 	}
-	function getFileData() {
+	private function loadFileData() {
 		$this->filedata = array();
 		$filedata = @file_get_contents($this->storename);
 		if(!$filedata) return FALSE;
@@ -72,7 +72,7 @@ class localStorage {
 		if(!empty($filedata)) $this->filedata = $filedata;
 		return TRUE;
 	}
-	function setFileData() {
+	private function saveFileData() {
 		return @file_put_contents($this->storename, json_encode($this->filedata));
 	}
 }
