@@ -14,7 +14,7 @@ Require and instantiate the LocalStorage class:
 require 'src/localstorage.php';
 $store = new localStorage();
 ```
-Optionaly you can specify the file name where the datagonna be stored:
+Optionaly you can specify the file name where the data going to be stored:
 ```
 new localStorage("filestorage.db");
 ```
@@ -22,7 +22,7 @@ Perform an operation (for example: get an item value)
 ```
 $item = $store->getItem("item");
 ```
-There are only 4 methods: getItem, setItem, removeItem and clear, and their usage is identical to the Javascript version.
+There are only 4 methods: getItem, setItem, removeItem and clear, and their usage is identical to the Javascript version (see: http://dev.w3.org/html5/webstorage/#the-localstorage-attribute).
 
 Optionaly this implementation allows to use standard PHP array functions (push/pop/shift/unshift) to access first and last elements of the LocalStorage. Their usage is identical the usage of their PHP counterparts, ex.:
 ```
